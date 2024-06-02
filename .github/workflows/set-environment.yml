@@ -20,8 +20,6 @@ jobs:
       - name: Set environment
         uses: ./.github/actions/set-environment
         with:
-          environment: ${{ github.inputs.environment }}
-      - name: Get environment
-        run: echo Environment ${{ env.ENVIRONMENT }}
+          environment: ${{ inputs.environment }}
       - name: Print environment
-        run: env
+        run: printenv
