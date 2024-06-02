@@ -18,4 +18,4 @@ runs:
       shell: bash
     - name: Print environment
       run: printenv
-      shell: bash
+      shell: bash # run in a new shell process
