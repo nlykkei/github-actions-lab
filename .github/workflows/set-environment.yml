@@ -1,4 +1,4 @@
-name: Test set environment
+name: Set job enviroment in composite action
 
 on:
   workflow_dispatch:
@@ -10,8 +10,8 @@ on:
         description: Environment
 
 jobs:
-  call-composite-action:
-    name: Call composite action
+  set-environment:
+    name: Set environment
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -23,3 +23,9 @@ jobs:
           environment: ${{ inputs.environment }}
       - name: Print environment
         run: printenv
+      - name: Verify environment
+        run: | 
+          echo $GITHUB_ENV
+          grep -q -e "ENVIRONMENT=${{ inputs.environment }}" $GITHUB_ENV && \\ 
+          grep -q -e "FOO=BAR" $GITHUB_ENV && \\ 
+          echo "Environment verified" || echo "Environment not verified"
