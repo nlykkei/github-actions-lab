@@ -29,16 +29,12 @@ jobs:
       - name: Fetch OIDC token
         id: oidc
         run: |
-          echo "$(curl -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=${AUDIENCE}")"
-          echo bar
-          curl -i -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=${AUDIENCE}" | base64 -w 0
-          echo foo
           echo "token=$(curl -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=${AUDIENCE}" | jq -r .value)" >> ${GITHUB_OUTPUT}
         env:
           AUDIENCE: ${{ inputs.audience }}
       - name: Print OIDC token
         run: | 
           echo ${TOKEN} | base64 -w0
-          jwt --output json "${TOKEN}"
+          jwt --output json $(echo ${TOKEN} | base64 -d -w0)
         env: 
           TOKEN: ${{ steps.oidc.outputs.token }}
