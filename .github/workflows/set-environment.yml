@@ -25,6 +25,6 @@ jobs:
         run: printenv
       - name: Verify environment
         run: | 
-          grep -q -e "ENVIRONMENT=${{ inputs.environment }}" $GITHUB_ENV && \\ 
-          grep -q -e "FOO=BAR" $GITHUB_ENV && \\ 
+          grep -q -e "ENVIRONMENT=${{ inputs.environment }}" $GITHUB_ENV && \
+          grep -q -e "FOO=BAR" $GITHUB_ENV && \
           echo "Environment verified" || echo "Environment not verified"
