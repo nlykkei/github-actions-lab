@@ -1,4 +1,4 @@
-name: Set job enviroment in composite action
+name: Set enviroment using composite action
 
 on:
   workflow_dispatch:
