@@ -1,0 +1,29 @@
+name: Debug OIDC token
+
+on:
+  workflow_dispatch:
+    inputs:
+      audience:
+        type: string
+        required: false
+        default: api://AzureADTokenExchange
+        description: Audience
+
+jobs:
+  set-environment:
+    name: Set environment
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Fetch OIDC token
+        id: oidc
+        run: |
+          curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=${AUDIENCE}"
+        env:
+          AUDIENCE: ${{ inputs.audience }}
+
