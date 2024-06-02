@@ -10,8 +10,8 @@ on:
         description: Audience
 
 jobs:
-  set-environment:
-    name: Set environment
+  debug-oidc-token:
+    name: Debug OIDC token
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -20,10 +20,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install jwt-cli 
+        run: npm i -g jwt-cli
       - name: Fetch OIDC token
         id: oidc
         run: |
-          curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=${AUDIENCE}"
+          echo "token=$(curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=${AUDIENCE}" | jq -r .value)" >> ${GITHUB_OUTPUT}
         env:
           AUDIENCE: ${{ inputs.audience }}
-
+      - name: Print OIDC token
+        run: jwt --output json "${TOKEN}"
+        env: 
+          TOKEN: ${{ steps.oidc.outputs.token }}
