@@ -15,4 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Debug OIDC token
-        uses: actions-oidc-debugger@main
+        uses: github/actions-oidc-debugger@main
+        with:
+          audience: https://github.com/github
