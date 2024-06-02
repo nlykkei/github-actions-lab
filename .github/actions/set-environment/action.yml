@@ -15,8 +15,6 @@ runs:
       run: |
         echo "ENVIRONMENT=${{ inputs.environment }}" >> "${GITHUB_ENV}"
         echo FOO=BAR >> "${GITHUB_ENV}"
-        export HELLOWORLD=HELLO
-        printenv
       shell: bash
     - name: Print environment
       run: printenv
