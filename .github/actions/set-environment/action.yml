@@ -1,0 +1,17 @@
+name: Set environment
+description: Set environment variables for the job
+
+inputs:
+  environment:
+    type: string
+    required: false
+    default: dev
+    description: Environment
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set environment
+      run: |
+        echo "ENVIRONMENT=${{ inputs.environment }}" >> "${GITHUB_OUTPUT}"
+      shell: bash
