@@ -28,7 +28,7 @@ jobs:
           echo $GITHUB_ENV
           cat $GITHUB_ENV
           ls -la $GITHUB_ENV
+          stat $GITHUB_ENV
           echo HELLO
           grep -q -e "ENVIRONMENT=${{ inputs.environment }}" $GITHUB_ENV && \\ 
-          grep -q -e "FOO=BAR" $GITHUB_ENV && \\ 
-          echo "Environment verified" || echo "Environment not verified"
+          grep -q -e "FOO=BAR" $GITHUB_ENV
