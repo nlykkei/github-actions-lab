@@ -36,6 +36,6 @@ jobs:
         run: |
           RAW_TOKEN="$(echo ${TOKEN} | jq -r .value)"
           echo "${RAW_TOKEN}" | base64 -w0
-          jwt --output json "${RAW_TOKEN}"
+          echo $RAW_TOKEN | jwt --output json
         env: 
           TOKEN: ${{ steps.oidc.outputs.token }}
