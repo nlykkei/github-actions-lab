@@ -34,7 +34,7 @@ jobs:
           AUDIENCE: ${{ inputs.audience }}
       - name: Print OIDC token
         run: |
-          echo $TOKEN | base64 -w0
-          jwt --output json "$(echo ${TOKEN} | jq -r .value)"
+          RAW_TOKEN="$(echo ${TOKEN} | base -d | jq -r .value)"
+          jwt --output json "${RAW_TOKEN}"
         env: 
           TOKEN: ${{ steps.oidc.outputs.token }}
