@@ -11,8 +11,8 @@ permissions:
   contents: read
 
 jobs:
- output-log-level:
-    name: Output log level
+ create-artifact:
+    name: Create artifact
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
