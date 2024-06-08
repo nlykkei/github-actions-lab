@@ -12,20 +12,15 @@ on:
         - debug
         required: true
         default: warning
-      name:
-        description: Name
-        type: string
-        required: true
-        default: foo
 
 jobs:
   output-name:
-    name: Output name
+    name: Output log level
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Output name
-        run: 'echo "Name: ${{ inputs.name }}"'
+      - name: Output log level
+        run: 'echo "Log level: ${{ inputs.logLevel }}"'
 
   # A reusable workflow call (workflow_call) won't trigger a workflow_run event
   call-reusable-workflow-1:

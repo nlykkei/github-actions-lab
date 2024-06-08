@@ -13,5 +13,11 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Output workflow_run event payload
-        run: echo '${{ toJson(github.event.workflow_run) }}'
+        run: echo "${{ toJson(github.event.workflow_run) }}"
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: pr_number
+          github-token: ''
+          run-id: ${{ github.event.workflow_run.id }}
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
