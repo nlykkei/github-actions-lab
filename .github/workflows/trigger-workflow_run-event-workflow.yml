@@ -5,19 +5,31 @@ on:
     inputs:
       logLevel:
         description: Log level
-        required: true
-        default: warning
         type: choice
         options:
         - info
         - warning
         - debug
+        required: true
+        default: warning
+      name:
+        description: Name
+        type: string
+        required: true
+        default: foo
 
 jobs:
+  output-name:
+    name: Output name
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Output name
+        run: 'echo "Name: ${{ inputs.name }}"'
+
   call-reusable-workflow-1:
     name: Call reusable workflow 1
     uses: ./.github/workflows/reusable-workflow-1.yml
     with:
       logLevel: ${{ inputs.logLevel }}
     secrets: inherit
-        

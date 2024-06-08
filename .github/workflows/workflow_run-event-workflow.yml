@@ -2,7 +2,7 @@ name: workflow_run event workflow
 
 on:
   workflow_run:
-    workflows: [Trigger workflow_run event workflow]
+    workflows: [Reusable workflow 1]
     types: [completed]
     branches: [main]
   
