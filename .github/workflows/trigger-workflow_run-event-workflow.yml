@@ -27,6 +27,7 @@ jobs:
       - name: Output name
         run: 'echo "Name: ${{ inputs.name }}"'
 
+  # A reusable workflow call (workflow_call) won't trigger a workflow_run event
   call-reusable-workflow-1:
     name: Call reusable workflow 1
     uses: ./.github/workflows/reusable-workflow-1.yml
