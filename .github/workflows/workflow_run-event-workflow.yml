@@ -2,10 +2,9 @@ name: workflow_run event workflow
 
 on:
   workflow_run:
-    workflows: [Reusable workflow 1]
+    workflows: [Trigger workflow_run event workflow]
     types: [completed]
     branches: [main]
-  
 
 jobs:
   output-workflow_run-event-payload:
