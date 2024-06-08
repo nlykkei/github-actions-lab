@@ -1,0 +1,20 @@
+name: Reusable workflow 1
+
+on:
+  workflow_call:
+    inputs:
+      logLevel:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+ output-log-level:
+    name: Output log level
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Output log level
+        run: 'echo "Log level: ${{ inputs.logLevel }}"'

@@ -1,0 +1,23 @@
+name: Trigger workflow_run event workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: Log level
+        required: true
+        default: warning
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+
+jobs:
+  call-reusable-workflow-1:
+    name: Call reusable workflow 1
+    uses: ./.github/workflows/reusable-workflow-1.yml
+    with:
+      logLevel: ${{ inputs.logLevel }}
+    secrets: inherit
+        
