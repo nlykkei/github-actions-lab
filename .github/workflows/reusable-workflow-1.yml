@@ -26,6 +26,9 @@ jobs:
         with:
           name: pr_number
           path: pr/
+      - name: Output run ID
+        run: 'echo "Run ID: ${{ github.run_id }}"'
+      
 
   download-artifact:  
     name: Download artifact
@@ -38,5 +41,5 @@ jobs:
         name: pr_number
         path: pr/
         github-token: ${{ github.token}}
-        run-id: ${{ github.event.run_id }}
+        run-id: ${{ github.run_id }}
     needs: upload-artifact

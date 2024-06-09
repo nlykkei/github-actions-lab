@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Output log level
         run: 'echo "Log level: ${{ inputs.logLevel }}"'
+      - name: Output run ID
+        run: 'echo "Run ID: ${{ github.run_id }}"'
 
   # A reusable workflow call (workflow_call) won't trigger a workflow_run event
   call-reusable-workflow-1:
