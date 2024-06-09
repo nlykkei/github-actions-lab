@@ -7,7 +7,7 @@ on:
         required: true
         type: string
     secrets:
-      github_token:
+      token:
         required: false
 
 permissions:
@@ -25,7 +25,7 @@ jobs:
       with:
         name: random
         path: random/
-        github-token: ${{ secrets.github_token }}
+        github-token: ${{ secrets.token }}
         run-id: ${{ github.run_id }}
     - name: Output random number
       run: cat ./random/number
