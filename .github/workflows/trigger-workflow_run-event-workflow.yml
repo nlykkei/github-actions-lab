@@ -13,6 +13,12 @@ on:
         required: true
         default: warning
 
+permissions:
+  id-token: write
+  contents: read 
+  packages: read
+  pull-requests: write
+
 jobs:
   upload-artifact:
     name: Upload artifact
