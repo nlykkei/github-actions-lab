@@ -40,5 +40,6 @@ jobs:
     uses: ./.github/workflows/reusable-workflow-1.yml
     with:
       logLevel: ${{ inputs.logLevel }}
+    concurrency: trigger-workflow_run-event-workflow
     secrets: inherit
     needs: upload-artifact
