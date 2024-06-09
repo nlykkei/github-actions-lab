@@ -1,0 +1,24 @@
+name: Reusable workflow 2
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  download-artifact:  
+    name: Download artifact
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: random
+        path: random/
+        github-token: ${{ github.token}}
+        run-id: ${{ github.run_id }}
+    - name: Output random number
+      run: cat ./random/number
+    
