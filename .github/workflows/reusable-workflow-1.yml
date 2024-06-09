@@ -7,9 +7,6 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: read
-
 jobs:
   download-artifact:  
     name: Download artifact
@@ -28,5 +25,7 @@ jobs:
 
   call-reusable-workflow-2:
     name: Call reusable workflow 2
+    permissions:
+      contents: read
     uses: ./.github/workflows/reusable-workflow-2.yml
     secrets: inherit

@@ -4,7 +4,10 @@ on:
   workflow_call:
 
 permissions:
-  contents: read
+  id-token: write
+  contents: read 
+  packages: read
+  pull-requests: write
 
 jobs:
   download-artifact:  
