@@ -26,6 +26,9 @@ jobs:
   call-reusable-workflow-2:
     name: Call reusable workflow 2
     permissions:
-      contents: read
+      id-token: write
+      contents: read 
+      packages: read
+      pull-requests: write
     uses: ./.github/workflows/reusable-workflow-2.yml
     secrets: inherit
