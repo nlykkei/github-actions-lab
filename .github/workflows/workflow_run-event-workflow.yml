@@ -20,7 +20,10 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: pr_number
+          name: random
+          path: random/
           github-token: ${{ github.token }}
           run-id: ${{ github.event.workflow_run.id }}
+      - name: Output random number
+        run: cat ./random/number
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
