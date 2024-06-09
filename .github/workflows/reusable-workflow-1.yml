@@ -25,3 +25,8 @@ jobs:
         run-id: ${{ github.run_id }}
     - name: Output random number
       run: cat ./random/number
+
+  call-reusable-workflow-2:
+    name: Call reusable workflow 2
+    uses: ./.github/workflows/reusable-workflow-2.yml
+    secrets: inherit
