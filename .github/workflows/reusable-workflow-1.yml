@@ -11,8 +11,8 @@ permissions:
   contents: read
 
 jobs:
- create-artifact:
-    name: Create artifact
+  upload-artifact:
+    name: Upload artifact
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -26,3 +26,17 @@ jobs:
         with:
           name: pr_number
           path: pr/
+
+  download-artifact:  
+    name: Download artifact
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: pr_number
+        path: pr/
+        github-token: ${{ github.token}}
+        run-id: ${{ github.event.run_id }}
+    needs: upload-artifact
