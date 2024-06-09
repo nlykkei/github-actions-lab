@@ -54,5 +54,5 @@ jobs:
       logLevel: ${{ inputs.logLevel }}
     concurrency: trigger-workflow_run-event-workflow
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      token: ${{ secrets.GITHUB_TOKEN }}
     needs: upload-artifact
