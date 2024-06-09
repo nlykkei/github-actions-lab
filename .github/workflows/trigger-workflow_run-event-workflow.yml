@@ -41,3 +41,4 @@ jobs:
     with:
       logLevel: ${{ inputs.logLevel }}
     secrets: inherit
+    needs: upload-artifact
