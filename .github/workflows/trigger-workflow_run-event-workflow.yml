@@ -14,7 +14,7 @@ on:
         default: warning
 
 permissions:
-  contents: read 
+  contents: read
 
 jobs:
   upload-artifact:
@@ -53,5 +53,6 @@ jobs:
     with:
       logLevel: ${{ inputs.logLevel }}
     concurrency: trigger-workflow_run-event-workflow
-    secrets: inherit
+    secrets:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
     needs: upload-artifact

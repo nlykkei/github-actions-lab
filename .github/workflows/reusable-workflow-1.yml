@@ -6,6 +6,9 @@ on:
       logLevel:
         required: true
         type: string
+    secrets:
+      github_token:
+        required: false
 
 permissions:
   id-token: write
@@ -22,7 +25,7 @@ jobs:
       with:
         name: random
         path: random/
-        github-token: ${{ github.token}}
+        github-token: ${{ secrets.github_token }}
         run-id: ${{ github.run_id }}
     - name: Output random number
       run: cat ./random/number
