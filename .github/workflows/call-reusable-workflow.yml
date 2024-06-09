@@ -1,0 +1,22 @@
+name: Call reusable workflow
+
+on:
+  workflow_dispatch:
+
+
+permissions:
+  contents: none
+
+jobs:
+  job-1:
+    name: Job 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+  job-2:
+    name: Job 2
+    uses: ./.github/workflows/reusable-workflow-3.yml
+    needs: job-1
