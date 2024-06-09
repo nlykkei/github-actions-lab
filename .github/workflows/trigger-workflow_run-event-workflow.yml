@@ -23,6 +23,9 @@ jobs:
   upload-artifact:
     name: Upload artifact
     runs-on: ubuntu-latest
+    container:
+      image: debian:latest
+      options: --user 0
     timeout-minutes: 5
     steps:
       - name: Output log level
