@@ -6,6 +6,9 @@ on:
     types: [completed]
     branches: [main]
 
+permissions:
+  actions: read
+
 jobs:
   output-workflow_run-event-payload:
     name: Output workflow_run event payload
