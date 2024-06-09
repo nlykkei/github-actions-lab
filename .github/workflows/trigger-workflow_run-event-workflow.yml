@@ -14,8 +14,8 @@ on:
         default: warning
 
 jobs:
-  output-name:
-    name: Output log level
+  upload-artifact:
+    name: Upload artifact
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -23,6 +23,16 @@ jobs:
         run: 'echo "Log level: ${{ inputs.logLevel }}"'
       - name: Output run ID
         run: 'echo "Run ID: ${{ github.run_id }}"'
+      - name: Save random number
+        run: |
+          mkdir -p ./random
+          echo $RANDOM > ./random/number
+      - name: Output random number
+        run: cat ./random/number
+      - uses: actions/upload-artifact@v4
+        with:
+          name: random
+          path: random/
 
   # A reusable workflow call (workflow_call) won't trigger a workflow_run event
   call-reusable-workflow-1:

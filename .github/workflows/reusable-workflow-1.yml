@@ -11,25 +11,6 @@ permissions:
   contents: read
 
 jobs:
-  upload-artifact:
-    name: Upload artifact
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Save PR number
-        env:
-          PR_NUMBER: ${{ github.event.number }}
-        run: |
-          mkdir -p ./pr
-          echo $PR_NUMBER > ./pr/pr_number
-      - uses: actions/upload-artifact@v4
-        with:
-          name: pr_number
-          path: pr/
-      - name: Output run ID
-        run: 'echo "Run ID: ${{ github.run_id }}"'
-      
-
   download-artifact:  
     name: Download artifact
     runs-on: ubuntu-latest
@@ -38,8 +19,9 @@ jobs:
     - name: Download artifacts
       uses: actions/download-artifact@v4
       with:
-        name: pr_number
-        path: pr/
+        name: random
+        path: random/
         github-token: ${{ github.token}}
         run-id: ${{ github.run_id }}
-    needs: upload-artifact
+    - name: Output random number
+      run: cat ./random/number
