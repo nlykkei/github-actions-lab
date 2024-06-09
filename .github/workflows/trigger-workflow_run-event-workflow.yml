@@ -45,7 +45,7 @@ jobs:
     name: Call reusable workflow 1
     permissions:
       id-token: write
-      contents: none
+      contents: read
       packages: read
       pull-requests: write
       actions: read
