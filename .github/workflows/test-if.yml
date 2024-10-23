@@ -17,12 +17,14 @@ jobs:
     steps:
       - run: |
           echo "job2"
-          exit 1
+          sleep 60
   
   job3: 
     runs-on: ubuntu-latest
     if: always()
     needs: job2
     steps:
-      - run: echo "job3"
+      - run: |
+          echo "job3"
+          echo ${{ needs.job2.result }}
   
