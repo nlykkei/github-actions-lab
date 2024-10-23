@@ -20,7 +20,7 @@ jobs:
   
   job3: 
     runs-on: ubuntu-latest
-    if: false && !failure()
+    if: false && !cancelled() && !failure()
     needs: job2
     steps:
       - run: |
