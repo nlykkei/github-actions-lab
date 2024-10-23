@@ -17,11 +17,10 @@ jobs:
     steps:
       - run: |
           echo "job2"
-          exit 1
   
   job3: 
     runs-on: ubuntu-latest
-    if: ${{ !cancelled() }}
+    if: false && !cancelled()
     needs: job2
     steps:
       - run: |
