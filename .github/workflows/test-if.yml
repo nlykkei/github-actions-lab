@@ -17,10 +17,11 @@ jobs:
     steps:
       - run: |
           echo "job2"
+          exit 1
   
   job3: 
     runs-on: ubuntu-latest
-    if: always() && false
+    if: always()
     needs: job2
     steps:
       - run: echo "job3"
