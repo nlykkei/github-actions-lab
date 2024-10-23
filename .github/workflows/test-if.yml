@@ -21,7 +21,7 @@ jobs:
   
   job3: 
     runs-on: ubuntu-latest
-    if: true
+    if: always() && false
     needs: job2
     steps:
       - run: echo "job3"
