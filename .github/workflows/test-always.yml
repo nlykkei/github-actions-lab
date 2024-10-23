@@ -9,7 +9,6 @@ jobs:
     steps:
       - run: |
           echo "job1"
-          exit 1
   
   job2:
     runs-on: ubuntu-latest
