@@ -1,0 +1,27 @@
+name: Test if
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "job1"
+  
+  job2:
+    runs-on: ubuntu-latest
+    if: false
+    needs: job1
+    steps:
+      - run: |
+          echo "job2"
+  
+  job3: 
+    runs-on: ubuntu-latest
+    if: true
+    needs: job2
+    steps:
+      - run: echo "job3"
+  
