@@ -1,0 +1,21 @@
+name: Test always
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "job1"
+          exit 1
+  
+  job2:
+    runs-on: ubuntu-latest
+    if: always() && false
+    needs: job1
+    steps:
+      - run: |
+          echo "job2"
+  
