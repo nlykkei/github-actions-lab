@@ -9,20 +9,19 @@ jobs:
     steps:
       - run: |
           echo "job1"
-          sleep 60
+          sleep 10
   
   job2:
     runs-on: ubuntu-latest
-    if: false
     needs: job1
     steps:
       - run: |
           echo "job2"
-          sleep 60
+          sleep 10
   
   job3: 
     runs-on: ubuntu-latest
-    if: ${{ !cancelled() }}
+    if: ${{ !cancelled() && false }}
     needs: job2
     steps:
       - run: echo "job3"
