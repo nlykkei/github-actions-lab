@@ -33,7 +33,8 @@ jobs:
               console.log(`PR #${pr.number} was last updated at: ${pr.updated_at}`);
             });
 
-            const sevenDaysAgo = new Date().setDate(new Date().getDate() - 7);
+            # const sevenDaysAgo = new Date().setDate(new Date().getDate() - 7);
+            const sevenDaysAgo = new Date().setMinutes(-15);
             const stalePRs = pullRequests.filter(pr => new Date(pr.updated_at) < sevenDaysAgo);
             
             stalePRs.forEach(pr => {
@@ -47,6 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     needs: get-stale-prs
+    if: ${{fromJson(needs.get-stale-prs.outputs.stalePRs)}} != '[]'
     strategy:
       fail-fast: false
       matrix:
