@@ -33,7 +33,7 @@ jobs:
               console.log(`PR #${pr.number} was last updated at: ${pr.updated_at}`);
             });
 
-            # const sevenDaysAgo = new Date().setDate(new Date().getDate() - 7);
+            //const sevenDaysAgo = new Date().setDate(new Date().getDate() - 7);
             const sevenDaysAgo = new Date().setMinutes(-15);
             const stalePRs = pullRequests.filter(pr => new Date(pr.updated_at) < sevenDaysAgo);
             
