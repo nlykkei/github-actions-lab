@@ -56,10 +56,12 @@ jobs:
       matrix:
         stalePR: ${{fromJson(needs.get-stale-prs.outputs.stalePRs)}}
     steps:
-      - name: Debug
+      - name: Stale PR information
         run: |
-          echo ${{ matrix.stalePR }}
-          echo ${{ matrix.stalePR.number }}
+          echo "Number: ${{ matrix.stalePR.number }}"
+          echo "Title: ${{ matrix.stalePR.title }}"
+          echo "User: ${{ matrix.stalePR.user.login }}"
+          echo "Updated: ${{ matrix.stalePR.updated_at }}"
       - name: Login to Azure
         uses: azure/login@v2
         with:
