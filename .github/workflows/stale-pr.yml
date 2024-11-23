@@ -42,8 +42,8 @@ jobs:
             });
 
             core.setOutput('stalePRs', JSON.stringify(stalePRs));
-      env:
-        DAYS_WITHOUT_ACTIVITY: 7
+        env:
+          DAYS_WITHOUT_ACTIVITY: 7
 
   deprovision-stale-pr-environments:
     name: 'Deprovision stale PR environments (PR #${{ matrix.stalePR.number }})'
