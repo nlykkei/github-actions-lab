@@ -1,0 +1,71 @@
+name: Deprovision stale PR environments
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: deprovision-stale-pr-environments
+  cancel-in-progress: true
+
+jobs:
+  get-stale-prs:
+    name: Get stale PRs
+    runs-on: ubuntu-latest
+    outputs:
+      stalePRs: ${{ steps.get-stale-prs.outputs.stalePRs }}
+    steps:
+      - name: Get stale PRs without activity for 7 days
+        id: get-stale-prs
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: pullRequests } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100
+            });
+
+            pullRequests.forEach(pr => {
+              console.log(`PR #${pr.number} was last updated at: ${pr.updated_at}`);
+            });
+
+            const sevenDaysAgo = new Date().setDate(new Date().getDate() - 7);
+            const stalePRs = pullRequests.filter(pr => new Date(pr.updated_at) < sevenDaysAgo);
+            
+            stalePRs.forEach(pr => {
+              console.log(`PR #${pr.number} is stale`);
+            });
+
+            core.setOutput('stalePRs', JSON.stringify(stalePRs));
+
+  deprovision-stale-pr-environments:
+    name: Deprovision stale PR environments
+    runs-on: ubuntu-latest
+    environment: dev
+    needs: get-stale-prs
+    strategy:
+      fail-fast: false
+      matrix:
+        stalePR: ${{fromJson(needs.get-stale-prs.outputs.stalePRs)}}
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Delete infrastructure
+        uses: azure/cli@v2
+        with:
+          azcliversion: ${{ vars.AZURE_CLI_VERSION }}
+          inlineScript: |
+            az stack sub delete \
+              --name ${{ env.deploymentStackName }} \
+              --action-on-unmanage deleteAll \
+              --yes 
+        env:
+          deploymentStackName: IAM-AssetGovernance-PR-${{ matrix.stalePR.number }}
