@@ -46,7 +46,7 @@ jobs:
         DAYS_WITHOUT_ACTIVITY: 7
 
   deprovision-stale-pr-environments:
-    name: Deprovision stale PR environments (PR #${{ matrix.stalePR.number }})
+    name: 'Deprovision stale PR environments (PR #${{ matrix.stalePR.number }})'
     runs-on: ubuntu-latest
     environment: dev
     needs: get-stale-prs
