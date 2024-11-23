@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: deprovision-stale-pr-environments
+  group: deprovision-stale-pr-environment
   cancel-in-progress: true
 
 jobs:
@@ -46,7 +46,7 @@ jobs:
           DAYS_WITHOUT_ACTIVITY: 7
 
   deprovision-stale-pr-environment:
-    name: 'Deprovision stale PR environment ()'
+    name: 'Deprovision stale PR environment (PR #${{ matrix.stalePR.number }})'
     runs-on: ubuntu-latest
     environment: dev
     needs: get-stale-prs
@@ -56,6 +56,10 @@ jobs:
       matrix:
         stalePR: ${{fromJson(needs.get-stale-prs.outputs.stalePRs)}}
     steps:
+      - name: Debug
+        run: |
+          echo ${{ matrix.stalePR }}
+          echo ${{ matrix.stalePR.number }}
       - name: Login to Azure
         uses: azure/login@v2
         with:
